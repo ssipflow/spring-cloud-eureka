@@ -1,3 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+  metadata:
+    name: eureka
+  spec:
+    rules:
+    - host: eureka.k8s.com
+      http:
+        paths:
+        - backend:
+            serviceName: eureka
+            servicePort: 80
+---
 kind: Service
 apiVersion: v1
 metadata:
@@ -30,7 +43,7 @@ spec:
     spec:
       containers:
       - name: spring-cloud-eureka
-        image: hubtea/spring-cloud-config:latest
+        image: hubtea/spring-cloud-eureka:latest
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: dev
