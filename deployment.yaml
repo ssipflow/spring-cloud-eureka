@@ -7,9 +7,10 @@ spec:
   - host: eureka.k8s.com
     http:
       paths:
-      - backend:
+      - path: /
+        backend:
           serviceName: eureka
-          servicePort: 80
+          servicePort: 8761
 ---
 kind: Service
 apiVersion: v1
@@ -29,18 +30,20 @@ kind: Deployment
 metadata:
   name: spring-cloud-eureka
   labels:
-    app: spring-cloud
+    app: spring-cloud-eureka
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-cloud
+      app: spring-cloud-eureka
   template:
     metadata:
       labels:
-        app: spring-cloud
+        app: spring-cloud-eureka
         version: latest
     spec:
+      hostname: eureka
+      subdomain: eureka
       containers:
       - name: spring-cloud-eureka
         image: hubtea/spring-cloud-eureka:latest
