@@ -29,9 +29,8 @@ ext {
 	springCloudVersion = 'Finchley.M8'
 }
 
-jar {
-	baseName = 'msa-config'
-	version =  '1.0.0'
+bootJar {
+	baseName = 'app'
 }
 
 dependencies {

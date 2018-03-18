@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: eureka
+spec:
+  type: ClusterIP
+  selector:
+    app: spring-cloud-eureka
+  ports:
+  - protocol: TCP
+    port: 8761
+    targetPort: 8761
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-cloud-eureka
+  labels:
+    app: spring-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-cloud
+  template:
+    metadata:
+      labels:
+        app: spring-cloud
+        version: latest
+    spec:
+      containers:
+      - name: spring-cloud-eureka
+        image: hubtea/spring-cloud-config:latest
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev
+        - name: spring.cloud.config.uri
+          value: http://config.development.svc.cluster.local:8888
+        - name: eureka.datacenter
+          value: Kubernetes Cluster
+        - name: eureka.environment
+          value: Development Environment
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka.development.svc.cluster.local:8761/eureka/
+        ports:
+        - name: http
+          containerPort: 8761
