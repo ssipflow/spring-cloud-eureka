@@ -50,14 +50,10 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: dev
-        - name: spring.cloud.config.uri
-          value: http://config.development.svc.cluster.local:8888
         - name: eureka.datacenter
           value: Kubernetes Cluster
         - name: eureka.environment
           value: Development Environment
-        - name: eureka.client.serviceUrl.defaultZone
-          value: http://eureka.development.svc.cluster.local:8761/eureka/
         ports:
         - name: http
           containerPort: 8761
