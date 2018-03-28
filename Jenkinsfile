@@ -22,7 +22,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        buildImage = docker.build("hubtea/spring-cloud-eureka:${commitHash}")
+        buildImage = docker.build("ssipflow/spring-cloud-eureka:${commitHash}")
     }
 
 
@@ -39,6 +39,6 @@ node {
     }
 
     stage('Kubernetes Deploy') {
-        sh 'kubectl apply --namespace=development -f deployment.yaml'
+        sh 'kubectl apply --namespace=default -f deployment.yaml'
     }
 }
