@@ -3,4 +3,4 @@ spring:
     name: apireg
   cloud:
     config:
-      uri: http://config.development.svc.cluster.local:8888
+      uri: http://config.default.svc.cluster.local:8888
